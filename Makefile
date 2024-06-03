@@ -1,7 +1,14 @@
 CFLAGS = -I .
 LIBS = -lm
-CC = cc
 FLAGS = 
+
+ifdef $(CC)
+	ifeq ($(CC), mpicc)
+		LIBS = -lm -lmpi
+	endif
+else
+	CC = cc
+endif
 
 %.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS) $(FLAGS)
